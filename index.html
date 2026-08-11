@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>北海道の旅 2026.8.17-23 ハピゾノ初めての旅行</title>
+<style>
+  :root{
+    --sea:#1c4a6e; --sea-d:#12314a; --sky:#e8f1f7; --sand:#faf7f1;
+    --ink:#1f2933; --muted:#69747f; --line:#dfe4ea;
+    --ok:#2e7d5b; --ok-bg:#e6f4ed;
+    --warn:#a8630f; --warn-bg:#fdf1de;
+    --todo:#a33a3a; --todo-bg:#fbeaea;
+    --accent:#c8622a;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth; scroll-padding-top:64px}
+  body{margin:0; background:var(--sand); color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Noto Sans JP","Yu Gothic",sans-serif;
+    line-height:1.75; font-size:15px}
+  a{color:var(--sea)}
+  .wrap{max-width:920px; margin:0 auto; padding:0 20px}
+
+  header.hero{background:linear-gradient(160deg,var(--sea) 0%, var(--sea-d) 100%); color:#fff; padding:44px 0 36px}
+  header.hero h1{margin:0 0 6px; font-size:27px; letter-spacing:.04em; font-weight:600}
+  header.hero .sub{opacity:.85; font-size:14px; margin:0}
+  .herometa{display:flex; flex-wrap:wrap; gap:22px; margin-top:22px; font-size:13px}
+  .herometa div span{display:block; opacity:.7; font-size:11px; letter-spacing:.08em}
+  .herometa div strong{font-weight:600; font-size:15px}
+
+  nav.tabs{position:sticky; top:0; z-index:20; background:rgba(250,247,241,.94); backdrop-filter:blur(8px); border-bottom:1px solid var(--line)}
+  nav.tabs ul{list-style:none; margin:0 auto; padding:0 16px; display:flex; gap:4px; overflow-x:auto; max-width:920px}
+  nav.tabs a{display:block; padding:12px 10px; font-size:13px; color:var(--muted); text-decoration:none; white-space:nowrap; border-bottom:2px solid transparent}
+  nav.tabs a:hover{color:var(--sea); border-bottom-color:var(--sea)}
+
+  section{padding:34px 0 6px}
+  h2{font-size:19px; font-weight:600; margin:0 0 4px; padding-bottom:8px; border-bottom:2px solid var(--sea)}
+  h2 .num{color:var(--muted); font-size:12px; letter-spacing:.1em; display:block; font-weight:400}
+  h3{font-size:16px; font-weight:600; margin:26px 0 8px}
+  p.lead{color:var(--muted); font-size:13.5px; margin:8px 0 18px}
+
+  .card{background:#fff; border:1px solid var(--line); border-radius:10px; margin:16px 0; overflow:hidden}
+  .card .cardhead{background:var(--sky); padding:12px 18px; border-bottom:1px solid var(--line); display:flex; align-items:baseline; gap:12px; flex-wrap:wrap}
+  .card .cardhead .date{font-size:17px; font-weight:600; color:var(--sea-d)}
+  .card .cardhead .theme{font-size:13px; color:var(--muted)}
+  .card .cardbody{padding:6px 18px 16px}
+  .card.pick .cardhead{background:var(--ok-bg)}
+  .card.pick .cardhead .date{color:var(--ok)}
+
+  ul.tl{list-style:none; margin:0; padding:0}
+  ul.tl>li{display:flex; gap:14px; padding:11px 0; border-bottom:1px dashed var(--line)}
+  ul.tl>li:last-child{border-bottom:0}
+  ul.tl .t{flex:0 0 78px; font-variant-numeric:tabular-nums; font-size:13.5px; color:var(--sea); font-weight:600; padding-top:1px}
+  ul.tl .b{flex:1; min-width:0}
+  ul.tl .b .ttl{font-size:15px; font-weight:600}
+  ul.tl .b .dsc{font-size:13.5px; color:var(--muted); margin-top:2px}
+
+  .tag{display:inline-block; font-size:11px; padding:2px 8px; border-radius:20px; vertical-align:2px; margin-left:6px; letter-spacing:.03em; white-space:nowrap}
+  .tag.ok{background:var(--ok-bg); color:var(--ok)}
+  .tag.todo{background:var(--todo-bg); color:var(--todo)}
+  .tag.warn{background:var(--warn-bg); color:var(--warn)}
+  .tag.info{background:#eceff3; color:var(--muted)}
+
+  table{width:100%; border-collapse:collapse; font-size:13.5px; margin:12px 0; background:#fff}
+  th,td{border:1px solid var(--line); padding:8px 10px; text-align:left; vertical-align:top}
+  th{background:var(--sky); font-weight:600; font-size:12.5px; color:var(--sea-d)}
+  td.num{font-variant-numeric:tabular-nums; white-space:nowrap}
+  td.c{text-align:center}
+
+  .note{background:#fff; border:1px solid var(--line); border-left:3px solid var(--accent); padding:12px 16px; margin:14px 0; font-size:13.5px; border-radius:0 6px 6px 0}
+  .note .lbl{font-size:11px; letter-spacing:.1em; color:var(--accent); display:block; margin-bottom:2px}
+
+  .grid2{display:grid; grid-template-columns:1fr 1fr; gap:14px}
+  @media(max-width:640px){ .grid2{grid-template-columns:1fr} ul.tl>li{flex-direction:column; gap:2px} ul.tl .t{flex:none} }
+
+  .packlist{background:#fff; border:1px solid var(--line); border-radius:10px; padding:14px 18px}
+  .packlist h4{margin:10px 0 6px; font-size:14px; color:var(--sea-d)}
+  .packlist ul{margin:0; padding-left:20px; font-size:13.5px}
+  .packlist li{margin:3px 0}
+  .packlist li.hi{color:var(--todo); font-weight:600}
+
+  .ronten{background:#fff; border:1px solid var(--line); border-radius:10px; padding:4px 20px 14px; margin:14px 0}
+  .ronten h4{font-size:15px; margin:18px 0 4px; color:var(--sea-d)}
+  .ronten p{font-size:13.5px; margin:4px 0; color:var(--muted)}
+
+  footer{margin-top:46px; padding:24px 0 40px; border-top:1px solid var(--line); color:var(--muted); font-size:12px}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <h1>北海道の旅 2026年8月17日 - 23日</h1>
+    <p class="sub">知床 / 厚岸 / 中標津 / 稚内 / 利尻 / 礼文　ハピゾノ（生後4か月）はじめての旅行</p>
+    <div class="herometa">
+      <div><span>DAYS</span><strong>6泊7日</strong></div>
+      <div><span>FLIGHT</span><strong>ANA 3レグ すべて予約済</strong></div>
+      <div><span>FIXED</span><strong>8/17 - 8/20 はほぼ確定</strong></div>
+      <div><span>OPEN</span><strong>8/20夜 - 8/23 を相談中</strong></div>
+    </div>
+  </div>
+</header>
+
+<nav class="tabs">
+  <ul>
+    <li><a href="#status">予約状況</a></li>
+    <li><a href="#pack">持ち物</a></li>
+    <li><a href="#first">前半 8/17-20</a></li>
+    <li><a href="#plans">後半のプラン</a></li>
+    <li><a href="#spots">行きたいところ</a></li>
+    <li><a href="#access">稚内の足</a></li>
+    <li><a href="#ronten">論点</a></li>
+    <li><a href="#move">移動の目安</a></li>
+    <li><a href="#baby">赤ちゃんメモ</a></li>
+    <li><a href="#tel">電話帳</a></li>
+  </ul>
+</nav>
+
+<div class="wrap">
+
+<!-- ============ 予約状況 ============ -->
+<section id="status">
+  <h2><span class="num">RESERVATION</span>予約状況</h2>
+  <table>
+    <tr><th style="width:76px">状況</th><th style="width:60px">日</th><th>項目</th><th>次にやること</th></tr>
+    <tr><td><span class="tag ok">済</span></td><td class="num">8/17</td><td>ANA377 羽田 12:30 → 中標津 14:10</td><td>手配済み</td></tr>
+    <tr><td><span class="tag ok">済</span></td><td class="num">8/17</td><td>中標津空港レンタカー（8/20返却）</td><td>ベビーシート付きで手配済み</td></tr>
+    <tr><td><span class="tag ok">済</span></td><td class="num">8/17</td><td>北こぶし知床 2泊</td><td>現地決済プラン、優待券の利用連絡ともに完了。当日は現物を持参</td></tr>
+    <tr><td><span class="tag info">保留</span></td><td class="num">8/18</td><td>ナイトツアー</td><td>定期ツアーは0歳不可。今回は館内で過ごす前提</td></tr>
+    <tr><td><span class="tag ok">済</span></td><td class="num">8/19</td><td>シーサイドインあっけし 1泊</td><td>手配済み。当日までに「20時に予定があるので夕食を早めに」と伝えておく</td></tr>
+    <tr><td><span class="tag ok">済</span></td><td class="num">8/19</td><td>カキキンオイスターバー牡蠣場 20:00</td><td>手配済み</td></tr>
+    <tr><td><span class="tag ok">済</span></td><td class="num">8/20</td><td>ANA4884 中標津 13:35 → 新千歳 14:30</td><td>手配済み</td></tr>
+    <tr><td><span class="tag ok">済</span></td><td class="num">8/20</td><td>ANA4843 新千歳 15:30 → 稚内 16:25</td><td>手配済み</td></tr>
+    <tr><td><span class="tag todo">未</span></td><td class="num">8/20</td><td>稚内のレンタカー</td><td>借りるかどうかを先に判断（「稚内の足」参照）。借りるならベビーシートを明示</td></tr>
+    <tr><td><span class="tag todo">未</span></td><td class="num">8/21</td><td>利尻のレンタカー</td><td>島は現地調達の方針で確定。利尻レンタカー 0163-82-2551 は電話予約のみ。ベビーシートの在庫確保が先</td></tr>
+    <tr><td><span class="tag todo">未</span></td><td class="num">8/20</td><td>稚内以降の宿</td><td>下のプランが決まってから。2泊か3泊か、島に泊まるかで変わる</td></tr>
+    <tr><td><span class="tag ok">済</span></td><td class="num">8/23</td><td>ANA572 稚内 13:30 → 羽田 15:30</td><td>手配済み</td></tr>
+  </table>
+  <div class="note">
+    <span class="lbl">いま止まっているところ</span>
+    8/20より前はすべて片づきました。残っているのは8/20夜から8/23までの宿と足だけです。どちらも「後半のプラン」を決めないと押さえられないので、次は下の論点をネギさんと詰めるところからになります。
+  </div>
+</section>
+
+<!-- ============ 持ち物 ============ -->
+<section id="pack">
+  <h2><span class="num">PACKING</span>持ち物</h2>
+  <div class="grid2">
+    <div class="packlist">
+      <h4>これを忘れると困る</h4>
+      <ul>
+        <li class="hi">北こぶし知床の宿泊優待券 5万円分（現物。手荷物に）</li>
+        <li class="hi">母子手帳と保険証、乳幼児医療費受給者証</li>
+        <li class="hi">レンタカーの予約控え（ベビーシートの記載を確認）</li>
+        <li>運転免許証（2人分）、ANAの予約番号</li>
+      </ul>
+      <h4>赤ちゃんまわり</h4>
+      <ul>
+        <li>おむつ（1日8枚 × 7日 + 予備）、おしりふき、消臭袋</li>
+        <li>ミルク、哺乳瓶2本、洗浄グッズ、液体ミルクと使い捨て乳首</li>
+        <li>抱っこ紐、軽いバギー</li>
+        <li>着替え多め、スタイ、薄手のアウター</li>
+        <li>日よけ、虫よけ、体温計、常備薬、保湿剤</li>
+      </ul>
+    </div>
+    <div class="packlist">
+      <h4>北海道の8月ならでは</h4>
+      <ul>
+        <li>宗谷岬と宗谷丘陵は風が強く8月でも寒い。ブランケットを1枚多く</li>
+        <li>フェリーの船内は冷える。羽織るもの</li>
+        <li>樺太食堂は現金のみ。現金を多めに</li>
+        <li>牡蠣と花咲蟹を持ち帰るなら保冷バッグ。空港からの宅配も検討</li>
+      </ul>
+      <h4>車に積んでおくもの</h4>
+      <ul>
+        <li>おむつ替えシート（道の駅の間隔が空く区間があるので車内で替える前提）</li>
+        <li>飲み物と軽食</li>
+        <li>ゴミ袋、タオル、日よけシェード</li>
+        <li>モバイルバッテリーと車載充電器</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 前半 ============ -->
+<section id="first">
+  <h2><span class="num">DAY 1-4</span>前半 8/17 - 8/20</h2>
+  <p class="lead">知床は2年前に一度回っているので、観光は最小限にして北こぶしの滞在時間を最大化する組み方にしています。</p>
+
+  <div class="card">
+    <div class="cardhead"><span class="date">8月17日（月）</span><span class="theme">まっすぐウトロへ</span></div>
+    <div class="cardbody">
+      <ul class="tl">
+        <li><div class="t">14:10</div><div class="b"><div class="ttl">根室中標津空港 到着</div></div></li>
+        <li><div class="t">14:35</div><div class="b"><div class="ttl">レンタカー受取、そのまま出発 <span class="tag todo">未予約</span></div><div class="dsc">ベビーシートの取り付けをここで。空港には6社が入っていて、いずれも送迎あり</div></div></li>
+        <li><div class="t">15:40</div><div class="b"><div class="ttl">標津あたりで1回だけ休憩</div><div class="dsc">羅臼までの中間。ここを逃すと知床峠まで停まる場所が減ります</div></div></li>
+        <li><div class="t">16:45</div><div class="b"><div class="ttl">北こぶし知床 チェックイン <span class="tag ok">予約済</span></div><div class="dsc">115km、約2時間。チェックインは15:00からですが、飛行機の到着が14:10なので物理的にはこれが最速です</div></div></li>
+        <li><div class="t">17:00</div><div class="b"><div class="ttl">大浴場、ラウンジ</div><div class="dsc">ラウンジのアルコールは15:00から23:00。到着後すぐに1杯やる時間はあります</div></div></li>
+        <li><div class="t">18:00</div><div class="b"><div class="ttl">夕食</div><div class="dsc">18:00オープン、20:00最終入場、21:00クローズ</div></div></li>
+      </ul>
+      <div class="note">
+        <span class="lbl">寄り道はしない前提にしました</span>
+        オシンコシンの滝はウトロから斜里側へ10分ほど戻る位置なので、中標津から来る今回のルートでは逆方向になります。2年前に見ているなら、この日は寄らずにホテルの時間を優先する方が得だと思います。
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="cardhead"><span class="date">8月18日（火）</span><span class="theme">丸一日ホテルにいる日</span></div>
+    <div class="cardbody">
+      <ul class="tl">
+        <li><div class="t">05:00</div><div class="b"><div class="ttl">朝風呂</div><div class="dsc">大浴場は5:00から9:30。サウナは5:00から10:00で男女入替</div></div></li>
+        <li><div class="t">午前</div><div class="b"><div class="ttl">ラウンジと流氷テラスの足湯</div><div class="dsc">ドリンクとおつまみは無料。アルコールは15:00から</div></div></li>
+        <li><div class="t">昼</div><div class="b"><div class="ttl">昼食は道の駅うとろ・シリエトクへ</div><div class="dsc">ホテルから徒歩圏。9:00-17:00でレストランは10:00-15:00。授乳室とおむつ交換台があるので、ここが知床の授乳拠点になります</div></div></li>
+        <li><div class="t">14:00</div><div class="b"><div class="ttl">2泊するので日中も大浴場が使えます</div><div class="dsc">連泊者は14:00からの日中利用が可能</div></div></li>
+        <li><div class="t">15:00</div><div class="b"><div class="ttl">ラウンジでアルコール解禁</div></div></li>
+        <li><div class="t">18:00</div><div class="b"><div class="ttl">夕食</div></div></li>
+      </ul>
+      <div class="note">
+        <span class="lbl">外に出るなら</span>
+        知床世界遺産センターは道の駅の隣で入館無料、夏は8:30から17:30で無休です。屋内なので雨でも暑くても使えます。知床五湖の高架木道は片道800mでベビーカーが通れる数少ない場所ですが、ウトロから往復40分の運転が要ります。天気が良くて余力があれば、くらいの位置づけで十分だと思います。
+      </div>
+      <div class="note">
+        <span class="lbl">ナイトツアーは今回は見送り</span>
+        ウトロ発の定期ツアーは、知床ネイチャーオフィスが小学生以上、ピッキオが4歳以上で1歳以下は不可、シンラが小学生以上。全滅です。貸切の「シリエトク・ナイトツアー」（ウエネウサルみどり、34,000円／組）だけ予約サイトの表示が0歳からになっていますが、この日はオールインクルーシブを味わい尽くす日にするなら、館内で過ごす方が筋が通っていると思います。
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="cardhead"><span class="date">8月19日（水）</span><span class="theme">知床から厚岸へ、牡蠣を軽く重ねる日</span></div>
+    <div class="cardbody">
+      <ul class="tl">
+        <li><div class="t">05:00</div><div class="b"><div class="ttl">最後の朝風呂</div><div class="dsc">大浴場は5:00から9:30。ここは削らない</div></div></li>
+        <li><div class="t">09:15</div><div class="b"><div class="ttl">北こぶし知床 チェックアウト、ウトロ発</div><div class="dsc">知床峠を越えて羅臼、標津、尾岱沼、別海、厚床、厚岸。約200km</div></div></li>
+        <li><div class="t">11:00</div><div class="b"><div class="ttl">道の駅 知床・らうす で休憩</div><div class="dsc">おむつ交換台あり。9:00-17:00</div></div></li>
+        <li><div class="t">12:30</div><div class="b"><div class="ttl">道の駅 おだいとう で休憩</div><div class="dsc">別海町尾岱沼。授乳室とおむつ交換台があり、この区間で授乳室が確認できている唯一の場所です。レストランは11:00-15:30なので、腹具合次第でここで軽く食べてもいい</div></div></li>
+        <li><div class="t">14:00</div><div class="b"><div class="ttl">厚岸 到着、まっすぐエーウロコへ</div><div class="dsc">厚岸漁協直売店。港町5-3、0153-52-0117、10:00-16:00。2時間の余裕を持って着けます</div></div></li>
+        <li><div class="t">14:15</div><div class="b"><div class="ttl">エーウロコで遅めのランチ、そのまま買い物</div><div class="dsc">水槽から生牡蠣や活ほっきを選んで、イートインの電子レンジ（5台）で蒸して食べる方式。ここが今回のランチ兼買い物になります。花咲蟹の在庫は前日までに電話で確認を</div></div></li>
+        <li><div class="t">16:00</div><div class="b"><div class="ttl">オイスターバールで軽く1杯（余力があれば）</div><div class="dsc">コンキリエ内のオイスターバール ピトレスクは9:00-21:00。エーウロコで満足していれば飛ばしてよし</div></div></li>
+        <li><div class="t">17:00</div><div class="b"><div class="ttl">シーサイドインあっけし チェックイン <span class="tag todo">未予約</span></div><div class="dsc">港町3-86、0153-68-9030。15:00から</div></div></li>
+        <li><div class="t">18:00</div><div class="b"><div class="ttl">宿で夕食</div><div class="dsc">口コミでは牡蠣が6個ほど付くとのこと。20時があるので控えめに</div></div></li>
+        <li><div class="t">20:00</div><div class="b"><div class="ttl">カキキンオイスターバー牡蠣場 <span class="tag ok">予約済</span></div><div class="dsc">奔渡1-137、0153-52-5277。駐車場がないので、宿から歩くか置き場所を決めておく</div></div></li>
+      </ul>
+      <div class="note">
+        <span class="lbl">9:15発にすると余裕が2時間生まれます</span>
+        10:00発だと厚岸着が15:30で、エーウロコの16:00閉店に対して30分しかありません。渋滞や工事、ハピゾノの休憩が1回増えるだけで消える余裕です。9:15に出れば14:00着で2時間持てます。朝風呂は5:00から入れるので、朝の時間を早めに使えばオールインクルーシブの取りこぼしはほとんどありません。犠牲になるのは朝食後のラウンジのゆっくり時間くらいです。
+      </div>
+      <div class="note">
+        <span class="lbl">ランチをエーウロコに寄せる案</span>
+        エーウロコは直売店にイートインが付いていて、買った牡蠣をその場で蒸して食べられます。つまり「厚岸で食べたい」と「直売店に行きたい」が1か所で片づきます。道中は道の駅で軽くつまむ程度にしておいて、14時台にエーウロコで遅めのランチ兼買い物、という形が一番きれいだと思います。この日は牡蠣が最大4回来るので、それぞれ量を抑えるのが正解です。宿には「20時に予定があるので夕食を早めに始めたい」と伝えておいてください。
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="cardhead"><span class="date">8月20日（木）</span><span class="theme">道東から最北へ</span></div>
+    <div class="cardbody">
+      <ul class="tl">
+        <li><div class="t">08:45</div><div class="b"><div class="ttl">厚岸 発</div><div class="dsc">標茶経由で約110km、2時間から2時間半。牧草地帯で店もトイレも少ないので、標茶市街で必ず1回休憩を</div></div></li>
+        <li><div class="t">11:00</div><div class="b"><div class="ttl">回転寿司 根室花まる 中標津店</div><div class="dsc">南町3-3、0153-78-8708。11:00開店。席の予約ができないので開店と同時に。ベビーカー可、子ども用イス2種、離乳食の温めに対応、バリアフリートイレあり</div></div></li>
+        <li><div class="t">12:20</div><div class="b"><div class="ttl">レンタカー返却</div><div class="dsc">給油してから。空港まで10分から15分</div></div></li>
+        <li><div class="t">13:35</div><div class="b"><div class="ttl">ANA4884 中標津 → 新千歳 14:30 <span class="tag ok">予約済</span></div></div></li>
+        <li><div class="t">15:30</div><div class="b"><div class="ttl">ANA4843 新千歳 → 稚内 16:25 <span class="tag ok">予約済</span></div><div class="dsc">乗り継ぎ60分</div></div></li>
+        <li><div class="t">16:45</div><div class="b"><div class="ttl">稚内空港でレンタカー受取 <span class="tag todo">未予約</span></div></div></li>
+        <li><div class="t">以降</div><div class="b"><div class="ttl">ここから先はプラン次第</div><div class="dsc">下の後半のプランへ</div></div></li>
+      </ul>
+      <div class="note">
+        <span class="lbl">この日の一番の勝負どころ</span>
+        中標津発9:25の便では新千歳10:20着で稚内行き10:15に間に合わず、17:40発では稚内行きが終わっています。当日中に稚内へ入る経路はこの一本だけで、欠航したときの代替がありません。花まるは開店と同時に入り、遅くとも12:15には店を出る前提で。道中で時間を食ったら寿司を諦めて空港へ直行する、という判断を先に決めておくと迷いません。
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 後半のプラン ============ -->
+<section id="plans">
+  <h2><span class="num">DAY 4-7</span>後半 8/20夜 - 8/23　5つのプラン</h2>
+  <p class="lead">どれもざっくりです。まず方向性を決めて、そのあと時刻を詰めます。共通の制約は3つ。稚内到着は8/20の16:25、帰りはANA572で8/23の13:30発、そして8/23の朝に動ける時間は実質2時間半しかないこと。</p>
+
+  <table>
+    <tr><th></th><th>プラン1<br>利尻日帰り</th><th>プラン2<br>利尻に泊まる</th><th>プラン3<br>礼文に泊まる</th><th>プラン4<br>両島を渡る</th><th>プラン5<br>島に行かない</th></tr>
+    <tr><td>稚内の宿</td><td class="c">3泊</td><td class="c">2泊</td><td class="c">2泊</td><td class="c">1泊</td><td class="c">3泊</td></tr>
+    <tr><td>島の宿</td><td class="c">なし</td><td class="c">利尻1泊</td><td class="c">礼文1泊</td><td class="c">利尻1 + 礼文1</td><td class="c">なし</td></tr>
+    <tr><td>荷物の移動</td><td class="c">なし</td><td class="c">1往復</td><td class="c">1往復</td><td class="c">3回</td><td class="c">なし</td></tr>
+    <tr><td>早起き</td><td class="c">8/21は5時45分</td><td class="c">不要</td><td class="c">不要</td><td class="c">8/23が朝の船</td><td class="c">不要</td></tr>
+    <tr><td>欠航のダメージ</td><td class="c">その日が消える</td><td class="c">中</td><td class="c">中</td><td class="c">大</td><td class="c">なし</td></tr>
+    <tr><td>宗谷岬</td><td class="c">8/22にゆっくり</td><td class="c">8/20夕方のみ</td><td class="c">8/20夕方のみ</td><td class="c">入らない</td><td class="c">たっぷり</td></tr>
+  </table>
+  <div class="note">
+    <span class="lbl">プランと宗谷岬はセットです</span>
+    上の一番下の行が効いてきます。島に泊まるプラン2とプラン3を選ぶと、宗谷岬は事実上あきらめることになります。逆に宗谷岬と宗谷丘陵をちゃんと見たいなら、プラン1かプラン5です。どちらを選ぶかで稚内で車を借りるかどうかも変わるので、詳しくは「稚内の足」を見てください。
+  </div>
+
+  <div class="card pick">
+    <div class="cardhead"><span class="date">プラン2　利尻に泊まる</span><span class="theme">いまのところ私のおすすめ</span></div>
+    <div class="cardbody">
+      <ul class="tl">
+        <li><div class="t">8/20 夕</div><div class="b"><div class="ttl">稚内着16:25、そのまま宗谷岬へ寄って市街で夕食</div><div class="dsc">空港は宗谷岬に向かう側にあります。飛行機2本のあとなので、しんどければ市街直行に切り替え。稚内泊</div></div></li>
+        <li><div class="t">8/21 午前</div><div class="b"><div class="ttl">樺太食堂で早めのウニ丼、ノシャップ岬</div><div class="dsc">樺太食堂は9:00開店で予約不可。港までは10分</div></div></li>
+        <li><div class="t">8/21 午後</div><div class="b"><div class="ttl">稚内11:15 → 鴛泊12:55、島の南半分を回る</div><div class="dsc">沓形岬、仙法志御崎公園、オタトマリ沼。ホテル雲丹御殿泊</div></div></li>
+        <li><div class="t">8/22 午前</div><div class="b"><div class="ttl">朝の利尻富士、姫沼、ペシ岬</div><div class="dsc">山が見えるのは朝が多いと言われます</div></div></li>
+        <li><div class="t">8/22 夕</div><div class="b"><div class="ttl">鴛泊16:40 → 稚内18:20、市街で夕食</div><div class="dsc">土曜なので甚八も竹ちゃんも営業日。稚内泊</div></div></li>
+        <li><div class="t">8/23 午前</div><div class="b"><div class="ttl">北防波堤ドーム、樺太記念館、副港市場</div><div class="dsc">12:00レンタカー返却、13:30発</div></div></li>
+      </ul>
+      <div class="note">
+        <span class="lbl">良いところと危ないところ</span>
+        フェリーは1往復のまま、島の滞在が日帰りの7時間45分から約28時間に伸びます。5時台の起床もありません。危ないのは8/22の16:40が欠航したとき。翌8/23の便は8:25、12:05、16:40で、13:30の飛行機に間に合うのは8:25の1本だけです。それと、宗谷岬に使える枠が8/20の夕方しか残りません。上の8/20夕方に入れてある宗谷岬は、無理なら素直に落としてください。
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="cardhead"><span class="date">プラン1　利尻日帰り</span><span class="theme">稚内3泊、荷物を動かさない</span></div>
+    <div class="cardbody">
+      <ul class="tl">
+        <li><div class="t">8/20 夕</div><div class="b"><div class="ttl">稚内着、市街で夕食。稚内泊</div></div></li>
+        <li><div class="t">8/21</div><div class="b"><div class="ttl">5:45出発、稚内7:15 → 鴛泊8:55。島を一周して16:40 → 稚内18:20</div><div class="dsc">島の滞在は7時間45分。一周60kmを寝ている間に走る形</div></div></li>
+        <li><div class="t">8/22</div><div class="b"><div class="ttl">樺太食堂、ノシャップ岬、宗谷岬、宗谷丘陵、白い道、樺太記念館</div><div class="dsc">稚内をまるごと1日で。夕食は甚八</div></div></li>
+        <li><div class="t">8/23 午前</div><div class="b"><div class="ttl">北防波堤ドーム、副港市場でおみやげ</div></div></li>
+      </ul>
+      <div class="note">
+        <span class="lbl">良いところと危ないところ</span>
+        荷物を一切動かさないのが最大の利点。宿も1つ押さえるだけで済みます。危ないのは8/21の朝で、5時45分に宿を出ることになります。生後4か月にはここが今回の旅で一番の負担になりそうです。
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="cardhead"><span class="date">プラン3　礼文に泊まる</span><span class="theme">ドライブしたいのが礼文なら</span></div>
+    <div class="cardbody">
+      <ul class="tl">
+        <li><div class="t">8/20 夕</div><div class="b"><div class="ttl">稚内着、宗谷岬に寄るか市街直行。稚内泊</div></div></li>
+        <li><div class="t">8/21</div><div class="b"><div class="ttl">稚内10:30 → 香深12:25。島の南から北へ</div><div class="dsc">北のカナリアパーク、桃岩展望台、澄海岬、スコトン岬。礼文泊</div></div></li>
+        <li><div class="t">8/22</div><div class="b"><div class="ttl">午前は礼文の残り、香深14:20 → 稚内16:15</div><div class="dsc">夕方から稚内市街。樺太食堂は15:00までなので、この日は間に合いません。稚内泊</div></div></li>
+        <li><div class="t">8/23 午前</div><div class="b"><div class="ttl">北防波堤ドーム、樺太記念館、副港市場</div></div></li>
+      </ul>
+      <div class="note">
+        <span class="lbl">良いところと危ないところ</span>
+        礼文は南北に細長く、海岸線を走るドライブそのものが目的になります。稚内から片道1時間55分と利尻より遠く、往復で約4時間を船の上で過ごすことになるのが負担。花が目当てなら、礼文の高山植物は初夏が中心と言われるので、8月下旬に何が咲いているかは礼文町の観光協会に確認した方がいいです。
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="cardhead"><span class="date">プラン4　両島を渡る</span><span class="theme">やりたい気持ちはわかる案</span></div>
+    <div class="cardbody">
+      <ul class="tl">
+        <li><div class="t">8/20 夕</div><div class="b"><div class="ttl">稚内着、市街で夕食。稚内泊</div></div></li>
+        <li><div class="t">8/21</div><div class="b"><div class="ttl">稚内11:15 → 鴛泊12:55。利尻の南半分。利尻泊</div></div></li>
+        <li><div class="t">8/22</div><div class="b"><div class="ttl">午前は利尻、鴛泊13:15 → 香深14:00。礼文の南部。礼文泊</div><div class="dsc">島から島へは45分</div></div></li>
+        <li><div class="t">8/23</div><div class="b"><div class="ttl">香深8:55 → 稚内10:50、そのまま空港へ</div><div class="dsc">13:30発に対して2時間40分の余裕</div></div></li>
+      </ul>
+      <div class="note">
+        <span class="lbl">正直に言うと</span>
+        3日で3回荷造りをして、船に3回乗ります。生後4か月には重い。そして8/23の朝の便が欠航したら、次は14:20発で稚内着16:15、飛行機には確実に間に合いません。両島を見られる魅力は本物ですが、リスクの取り方としてはおすすめしにくいです。次にもう一度来る理由を残しておく、という考え方もあります。
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="cardhead"><span class="date">プラン5　島に行かない</span><span class="theme">最北の陸をじっくり</span></div>
+    <div class="cardbody">
+      <ul class="tl">
+        <li><div class="t">8/20 夕</div><div class="b"><div class="ttl">稚内着、市街で夕食。稚内泊</div></div></li>
+        <li><div class="t">8/21</div><div class="b"><div class="ttl">宗谷岬、宗谷丘陵、白い道をまる一日</div><div class="dsc">急がないので、赤ちゃんのペースで動ける</div></div></li>
+        <li><div class="t">8/22</div><div class="b"><div class="ttl">樺太食堂、ノシャップ岬、稚内公園、樺太記念館、温泉</div><div class="dsc">南へ足を伸ばすならサロベツ原野や豊富温泉も。海の向こうに利尻富士が見えます</div></div></li>
+        <li><div class="t">8/23 午前</div><div class="b"><div class="ttl">北防波堤ドーム、副港市場でおみやげ</div></div></li>
+      </ul>
+      <div class="note">
+        <span class="lbl">良いところと危ないところ</span>
+        欠航も早起きも荷造りもありません。ハピゾノの初旅行としては一番安全です。一方で、稚内まで来て利尻にも礼文にも渡らないのは、次はいつ来るかを考えるともったいない気もします。8/20の夜にハピゾノの様子を見てから、翌朝に決めるという逃げ道としても使えます。
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 行きたいところ ============ -->
+<section id="spots">
+  <h2><span class="num">WISHLIST</span>行きたいところリスト</h2>
+  <p class="lead">プランを決めるための材料です。所要時間は移動を含みません。</p>
+
+  <h3>稚内とその周辺</h3>
+  <table>
+    <tr><th>行き先</th><th>市街から</th><th>滞在</th><th>メモ</th></tr>
+    <tr><td>樺太食堂（ウニ丼）</td><td class="num">車10分</td><td class="num">1時間</td><td>9:00-15:00、予約不可、現金のみ、駐車場10台、座敷あり。開店と同時が確実</td></tr>
+    <tr><td>ノシャップ岬</td><td class="num">車10分</td><td class="num">30分</td><td>樺太食堂のすぐ近く。駐車場20台無料。夕日の名所</td></tr>
+    <tr><td>稚内市樺太記念館</td><td class="num">車3分</td><td class="num">45分</td><td>副港市場2階、無料、10:00-17:00、8月は無休。明治以降の樺太の暮らしの展示</td></tr>
+    <tr><td>稚内市北方記念館</td><td class="num">車10分</td><td class="num">45分</td><td>稚内公園の開基百年記念塔内、400円。8月は21:00まで。北方領土と樺太と宗谷の歴史</td></tr>
+    <tr><td>稚内副港市場</td><td class="num">車3分</td><td class="num">2時間</td><td>記念館、温泉「港のゆ」、飲食、土産が同じ建物。雨とぐずりの避難先</td></tr>
+    <tr><td>北防波堤ドーム</td><td class="num">徒歩</td><td class="num">20分</td><td>屋根付きの回廊。ベビーカーで通れる</td></tr>
+    <tr><td>宗谷岬</td><td class="num">車40-45分</td><td class="num">40分</td><td>駐車場72台無料。風が強い</td></tr>
+    <tr><td>宗谷丘陵と白い道</td><td class="num">車45-60分</td><td class="num">1時間</td><td>展望休憩施設は8月は19:00まで。2026年は風車撤去工事の規制の可能性あり</td></tr>
+    <tr><td>サロベツ原野、豊富温泉</td><td class="num">車1時間</td><td class="num">半日</td><td>プラン5で1日余るなら。海の向こうに利尻富士</td></tr>
+  </table>
+
+  <h3>利尻島</h3>
+  <table>
+    <tr><th>行き先</th><th>鴛泊から</th><th>滞在</th><th>メモ</th></tr>
+    <tr><td>姫沼</td><td class="num">車10分</td><td class="num">30分</td><td>水面に利尻富士が映る。周囲の遊歩道は1周20分</td></tr>
+    <tr><td>ペシ岬</td><td class="num">徒歩</td><td class="num">30分</td><td>展望台は急な登り。赤ちゃん連れならふもとまで</td></tr>
+    <tr><td>野塚展望台</td><td class="num">車10分</td><td class="num">20分</td><td>島の北側</td></tr>
+    <tr><td>沓形岬公園</td><td class="num">車25分</td><td class="num">30分</td><td>島の西側。夕日</td></tr>
+    <tr><td>仙法志御崎公園</td><td class="num">車40分</td><td class="num">30分</td><td>島の南端。ゴマフアザラシがいる</td></tr>
+    <tr><td>オタトマリ沼</td><td class="num">車45分</td><td class="num">30分</td><td>島の南東。利尻富士の定番の眺め</td></tr>
+    <tr><td>島の一周</td><td class="num">約60km</td><td class="num">走行1時間半</td><td>停まりながらで4時間から5時間</td></tr>
+  </table>
+
+  <h3>礼文島</h3>
+  <table>
+    <tr><th>行き先</th><th>香深から</th><th>滞在</th><th>メモ</th></tr>
+    <tr><td>北のカナリアパーク</td><td class="num">車10分</td><td class="num">40分</td><td>映画のロケ地。海の向こうに利尻富士</td></tr>
+    <tr><td>桃岩展望台</td><td class="num">車15分</td><td class="num">30分</td><td>展望台までは歩き</td></tr>
+    <tr><td>澄海岬</td><td class="num">車40分</td><td class="num">40分</td><td>島の北西。透明度の高い入江</td></tr>
+    <tr><td>スコトン岬</td><td class="num">車50分</td><td class="num">30分</td><td>島の最北端</td></tr>
+  </table>
+</section>
+
+<!-- ============ 稚内の足 ============ -->
+<section id="access">
+  <h2><span class="num">ACCESS</span>稚内の足をどうするか</h2>
+  <p class="lead">レンタカーを現地調達にする案を検討するために、稚内の主要な行き先が公共交通でどこまで届くかを調べました。結論から言うと、行き先によってはっきり分かれます。</p>
+
+  <h3>公共交通で行けるかどうか</h3>
+  <table>
+    <tr><th>行き先</th><th>判定</th><th>手段と運賃</th><th>実際のところ</th></tr>
+    <tr><td>ノシャップ岬、樺太食堂</td><td><span class="tag ok">問題なし</span></td><td>1市内線。稚内駅前から約11分。バス停から岬まで徒歩7分</td><td>平日41便、休日30便。ここは車がなくても困りません</td></tr>
+    <tr><td>稚内温泉童夢</td><td><span class="tag ok">問題なし</span></td><td>駅前から約17分。「稚内温泉前」バス停が施設直結</td><td>ノシャップとセットで回れます</td></tr>
+    <tr><td>道の駅わっかない</td><td><span class="tag ok">問題なし</span></td><td>JR稚内駅とバスターミナルと同じ建物</td><td>移動そのものが不要</td></tr>
+    <tr><td>稚内副港市場、樺太記念館</td><td><span class="tag ok">問題なし</span></td><td>稚内駅から徒歩13分（1.1km）</td><td>ベビーカーで歩ける距離。雨ならタクシーで初乗り圏内</td></tr>
+    <tr><td>北防波堤ドーム</td><td><span class="tag ok">問題なし</span></td><td>稚内駅から徒歩5分</td><td></td></tr>
+    <tr><td>宗谷岬</td><td><span class="tag warn">かなり不便</span></td><td>天北宗谷岬線、片道1,600円。1日4便</td><td>駅前9:30発で10:20着、戻りは11:04か15:20。滞在44分か5時間の二択になります</td></tr>
+    <tr><td>稚内公園、開基百年記念塔、北方記念館</td><td><span class="tag todo">バス便なし</span></td><td>タクシーのみ（駅から約10分）</td><td>高台への登り坂で、ベビーカーで登るのは現実的ではありません</td></tr>
+    <tr><td>宗谷丘陵、白い道</td><td><span class="tag todo">実質不可</span></td><td>路線バスなし</td><td>「宗谷」バス停から徒歩で往復3時間。4か月の赤ちゃん連れでは無理です</td></tr>
+  </table>
+
+  <div class="note">
+    <span class="lbl">ひとつだけ抜け道があります</span>
+    2026年6月1日から9月末まで、宗谷岬と宗谷丘陵を結ぶ「アクティブバス」という期間限定の便が走っています。復路は宗谷岬16:00発と17:00発が宗谷丘陵を経由して稚内駅前まで来ます（宗谷岬から稚内駅前が大人2,000円）。路線バスで駅前13:30発の便で宗谷岬へ行き、岬で1時間半過ごして16:00のアクティブバスで宗谷丘陵経由で帰る、という組み方はできます。ただし宗谷丘陵での停車が何分かは確認できていないので、じっくり見るのには向きません。運行日と予約の要否も要確認です（宗谷バス 0162-22-3114）。
+  </div>
+
+  <h3>足を決める前に、宗谷岬に行くかどうか</h3>
+  <p class="lead">前回は宗谷岬に行く前提で3案を比べていましたが、ご指摘のとおりそこが動くと結論が変わります。順番を入れ替えます。</p>
+
+  <div class="note">
+    <span class="lbl">上の表からわかること</span>
+    稚内で行きたい場所は、公共交通で普通に届くグループ（ノシャップ岬、樺太食堂、副港市場、樺太記念館、道の駅、童夢、北防波堤ドーム）と、車がないと苦しいグループ（宗谷岬、宗谷丘陵、白い道、稚内公園）にきれいに分かれます。つまり足の問題は、実質「後者に行くかどうか」の問題です。前者だけなら車は要りません。
+  </div>
+
+  <h3>宗谷岬に行かない場合</h3>
+  <table>
+    <tr><th>項目</th><th>公共交通</th><th>レンタカー</th></tr>
+    <tr><td>空港と市街の往復</td><td class="num">3,200円</td><td class="num">車</td></tr>
+    <tr><td>稚内市内の移動</td><td class="num">約7,000円</td><td class="num">車</td></tr>
+    <tr><td>稚内のレンタカー3日とベビーシート</td><td class="num">なし</td><td class="num">30,750円</td></tr>
+    <tr><th>差額</th><th colspan="2">レンタカーの方が約2万円高い</th></tr>
+  </table>
+  <p style="font-size:14px">この条件なら公共交通で決まりです。ノシャップ方面は1市内線が平日41便、休日30便あって11分。副港市場は駅から徒歩13分。道の駅は駅と同じ建物。困る場面がありません。2万円を払って得られるのは、雨のときとハピゾノの機嫌が悪いときの逃げ場だけです。それはそれで価値がありますが、2万円ぶんかと言われると弱いと思います。</p>
+
+  <h3>宗谷岬に行く場合</h3>
+  <table>
+    <tr><th>手段</th><th>費用</th><th>できること</th><th>できないこと</th></tr>
+    <tr><td>路線バス往復</td><td class="num">6,400円（2名）</td><td>宗谷岬の碑を見る</td><td>1日4便。滞在44分か5時間の二択。宗谷丘陵と白い道には行けない</td></tr>
+    <tr><td>路線バス＋アクティブバス</td><td class="num">約7,200円（2名）</td><td>宗谷岬に1時間半、帰りに宗谷丘陵を経由</td><td>丘陵での停車時間が不明。降りて歩くのは期待しにくい</td></tr>
+    <tr><td>観光タクシー 最北端Cコース</td><td class="num">18,300円から</td><td>宗谷岬を1時間40分。0歳から乗車可</td><td>宗谷丘陵と白い道は含まれない</td></tr>
+    <tr><td>観光タクシー 市内最北端Aコース</td><td class="num">22,900円から</td><td>宗谷岬、稚内公園、ノシャップ岬。8月は白い道も通れる</td><td>コースが固定。ハピゾノ次第で切り上げにくい</td></tr>
+    <tr><td>レンタカー3日</td><td class="num">30,750円</td><td>全部。時間も順番も自由</td><td>島に渡る夜の駐車場を確保する必要がある</td></tr>
+  </table>
+  <p style="font-size:14px">宗谷岬だけでいいなら観光タクシーが18,300円で、レンタカーとの差は約1万2千円。宗谷丘陵と白い道まで含めるなら22,900円で、差は約8千円まで縮まります。ここまで来るとレンタカーの方が得です。自由に停まれて、車内で授乳とおむつ替えができる。稚内市街から宗谷岬までの往復2時間はほぼ何もない区間なので、この差は小さくありません。</p>
+
+  <h3>ただし、そもそも宗谷岬に行ける日があるか</h3>
+  <table>
+    <tr><th>プラン</th><th>宗谷岬に使える枠</th><th>評価</th></tr>
+    <tr><td>プラン1　利尻日帰り</td><td>8/22 まる一日</td><td><span class="tag ok">余裕</span> 宗谷丘陵と白い道までゆっくり回れます</td></tr>
+    <tr><td>プラン2　利尻に泊まる</td><td>8/20の夕方だけ</td><td><span class="tag warn">かなり無理</span> 飛行機2本のあとに40分走ることになります</td></tr>
+    <tr><td>プラン3　礼文に泊まる</td><td>8/20の夕方だけ</td><td><span class="tag warn">かなり無理</span> 同上</td></tr>
+    <tr><td>プラン4　両島を渡る</td><td>なし</td><td><span class="tag todo">入りません</span></td></tr>
+    <tr><td>プラン5　島に行かない</td><td>8/21も8/22も空いている</td><td><span class="tag ok">たっぷり</span></td></tr>
+  </table>
+  <div class="note">
+    <span class="lbl">ここが今回わかった一番大事なこと</span>
+    宗谷岬に行くかどうかは、足の問題である前に、どのプランを選ぶかの問題でした。島に泊まるプラン2とプラン3では、宗谷岬の枠が8/20の夕方しかありません。稚内に着くのが16:25で、そこから飛行機2本ぶんの疲れを抱えて片道40分走ることになります。事実上「島に泊まるなら宗谷岬はあきらめる」に近い。逆に宗谷岬と宗谷丘陵をちゃんと見たいなら、選ぶべきはプラン1かプラン5です。
+  </div>
+
+  <h3>組み合わせて見るとこうなります</h3>
+  <table>
+    <tr><th>組み合わせ</th><th>足</th><th>宗谷岬</th><th>費用の目安</th><th>ひとこと</th></tr>
+    <tr><td>プラン2（利尻1泊）＋ 公共交通</td><td>バスと徒歩</td><td>行かない</td><td class="num">約49,000円</td><td>いま一番きれいに収まる形。荷物移動1回、早起きなし、車の心配なし</td></tr>
+    <tr><td>プラン2（利尻1泊）＋ レンタカー</td><td>車</td><td>8/20夕方に無理やり</td><td class="num">約70,000円</td><td>2万円払って疲れた夕方の宗谷岬を買う形。あまりすすめません</td></tr>
+    <tr><td>プラン1（利尻日帰り）＋ レンタカー</td><td>車</td><td>8/22にゆっくり</td><td class="num">約61,000円</td><td>全部乗せ。ただし8/21は5時45分起き</td></tr>
+    <tr><td>プラン5（島なし）＋ レンタカー</td><td>車</td><td>たっぷり</td><td class="num">約31,000円</td><td>一番安くて一番楽。海は渡らない</td></tr>
+  </table>
+  <p class="lead">レンタカーはコンパクトカー24時間9,700円＋ベビーシート1,650円、利尻レンタカーは軽の48時間23,500円（日帰りなら24時間14,500円）に免責1,000円、フェリー旅客は大人3,590円の2名往復で計算しています。車両航送を使う案は、往復43,300円かかって島で借りるより2万円高いので落としました。</p>
+
+  <div class="note">
+    <span class="lbl">私の見立て</span>
+    宗谷岬に行くかどうかを先に決めてください。行かないと決めるなら、プラン2と公共交通の組み合わせが費用も手間も一番軽くなります。行きたいなら、プラン1と車の組み合わせにして、8/21の早起きを受け入れるか、いっそプラン5で島を捨てて宗谷をじっくり回るか。中途半端に危ないのは「プラン2で車も借りて8/20の夕方に宗谷岬」で、これは2万円を払って一番疲れているタイミングに予定を足す形になります。
+  </div>
+
+  <h3>公共交通とタクシーの数字</h3>
+  <table>
+    <tr><th>項目</th><th>金額</th><th>メモ</th></tr>
+    <tr><td>空港連絡バス 空港から稚内駅前</td><td class="num">大人800円</td><td>約30分。到着便に合わせて運行。現金かPayPayのみ。ANA4843の16:25着に接続する便があるかは要確認</td></tr>
+    <tr><td>空港からタクシー</td><td class="num">3,000-4,000円</td><td>約25分</td></tr>
+    <tr><td>タクシー初乗り</td><td class="num">1.31kmまで700-750円</td><td>以降281mか301mごとに100円</td></tr>
+    <tr><td>稚内路線バス1日乗車券</td><td class="num">大人3,300円</td><td>宗谷岬まで有効。宗谷岬の往復だけで3,200円なので元は取りやすい</td></tr>
+    <tr><td>観光タクシー 最北端Cコース</td><td class="num">18,300円から</td><td>宗谷岬、所要1時間40分。0歳から乗車可</td></tr>
+    <tr><td>観光タクシー 市内観光Aコース</td><td class="num">7,100円から</td><td>ノシャップ岬と稚内公園</td></tr>
+    <tr><td>定期観光バス 稚内Bコース</td><td class="num">要確認</td><td>14:00発、4時間15分。百年記念塔、宗谷丘陵（車窓）、宗谷岬、ノシャップ岬。乳児の扱いは要確認</td></tr>
+  </table>
+  <p class="lead">タクシーは道路交通法上、チャイルドシートの使用義務が免除されます。抱っこで後部座席に乗る形になります。</p>
+</section>
+
+<!-- ============ 論点 ============ -->
+<section id="ronten">
+  <h2><span class="num">DISCUSSION</span>ネギさんと決めたい論点</h2>
+  <p class="lead">前回は7つを並べていましたが、順番に依存関係があることがわかったので組み直しました。上の2つが決まると、残りはほぼ自動的に決まります。</p>
+
+  <div class="ronten">
+    <h4>最初に決める2つ</h4>
+
+    <h4>1　海を渡るかどうか、渡るならどこに泊まるか</h4>
+    <p>日帰りにすると8/21は5時45分起き。島に泊まると荷物が動いて欠航のリスクを負う。渡らないとその両方がない代わりに海を見るだけになる。宿を押さえられないので、ここが全部の起点です。</p>
+
+    <h4>2　宗谷岬と宗谷丘陵に行きたいかどうか</h4>
+    <p>ここが今回の追加です。前回はこれを行く前提にしていましたが、実際には論点1と強く絡んでいました。島に泊まるプラン2とプラン3では、宗谷岬に使える枠が8/20の夕方しかありません。稚内着16:25、飛行機2本のあとに片道40分。事実上「島に泊まるなら宗谷岬はあきらめる」に近い形です。逆に宗谷岬と宗谷丘陵をちゃんと見たいなら、選ぶべきはプラン1（利尻日帰り）かプラン5（島なし）になります。この2つを独立に決めようとすると矛盾するので、セットで考えてください。</p>
+
+    <h4>ここから先は上の2つで大方決まります</h4>
+
+    <h4>3　稚内で車を借りるかどうか</h4>
+    <p>宗谷岬に行かないなら公共交通で足ります。ノシャップ岬と樺太食堂は1市内線で11分、副港市場は駅から徒歩13分、道の駅は駅と同じ建物です。レンタカー3日で約2万円の差が出て、得られるのは雨とぐずりの逃げ場だけ。宗谷岬に行くなら、観光タクシーとの差は8千円から1万2千円まで縮まるので、車の方が得です。車をフェリーに載せる案は往復43,300円かかり、島で借りるより2万円高いので落としました。</p>
+
+    <h4>4　利尻と礼文、どちらを取るか</h4>
+    <p>論点1で島に泊まると決めた場合だけの話です。利尻は山を眺める島で稚内から1時間40分。礼文は海岸線を走る島で1時間55分。ドライブそのものを楽しみたいなら礼文、山を眺めて温泉と食事をしたいなら利尻。礼文の花は初夏が中心と言われるので、8月下旬に何が咲いているかは礼文町の観光協会に確認した方がいいです。</p>
+
+    <h4>5　欠航をどこまで許容するか</h4>
+    <p>これも島に泊まると決めた場合の話です。帰りが8/23の13:30発なので、最終日に船で戻る組み方だと余裕がありません。利尻から戻るなら朝8:25の1本、礼文からなら8:55の1本だけが間に合います。</p>
+
+    <h4>6　雲丹御殿にお金をかけるか</h4>
+    <p>利尻に泊まると決めた場合だけの話です。2名1泊で66,000円から104,200円。値段のほとんどが夕食のウニに乗っている宿です。今年の口コミは6月、7月、8月とそろって量に満足しているので不漁の年ではなさそうですが、生後4か月を連れた夕食は途中で席を立つことが普通に起こります。もっと軽い宿にして浮いたぶんを昼のウニ丼に回す、という選び方もあります。</p>
+
+    <h4>7　稚内の夕食をいつ何回取るか</h4>
+    <p>最後に埋めればいいところです。甚八と竹ちゃんは日曜定休なので8/23は使えません。竹ちゃんは小上がりがあり、車屋・源氏は扉と壁のある2名用個室があります。甚八は個室がなくカウンター主体なので、乳児連れで座れる席があるかは事前相談が要ります。稚内の夜はプランによって1回から3回まで変わります。</p>
+  </div>
+
+  <div class="note">
+    <span class="lbl">ネギさんに聞くならこの2問だけ</span>
+    「宗谷岬と最北端の碑、行きたい？」と「利尻か礼文の島に泊まってみたい？　それとも荷物を動かさず稚内に腰を据えたい？」。この2つの答えで4つの組み合わせのどれかに落ちます。残りはこちらで詰められます。
+  </div>
+</section>
+
+<!-- ============ 移動 ============ -->
+<section id="move">
+  <h2><span class="num">LOGISTICS</span>移動の目安</h2>
+
+  <h3>空の便（すべて予約済）</h3>
+  <table>
+    <tr><th>日</th><th>便名</th><th>区間</th><th>時刻</th></tr>
+    <tr><td class="num">8/17</td><td>ANA377</td><td>羽田 → 中標津</td><td class="num">12:30 → 14:10</td></tr>
+    <tr><td class="num">8/20</td><td>ANA4884</td><td>中標津 → 新千歳</td><td class="num">13:35 → 14:30</td></tr>
+    <tr><td class="num">8/20</td><td>ANA4843</td><td>新千歳 → 稚内</td><td class="num">15:30 → 16:25</td></tr>
+    <tr><td class="num">8/23</td><td>ANA572</td><td>稚内 → 羽田</td><td class="num">13:30 → 15:30</td></tr>
+  </table>
+
+  <h3>車</h3>
+  <table>
+    <tr><th>区間</th><th>距離</th><th>所要</th><th>途中の休憩</th></tr>
+    <tr><td>中標津空港 → ウトロ</td><td class="num">約115km</td><td class="num">約2時間</td><td>標津あたりで1回</td></tr>
+    <tr><td>ウトロ → 厚岸</td><td class="num">約200km</td><td class="num">3時間半-4時間</td><td>道の駅らうす、道の駅おだいとう（授乳室）</td></tr>
+    <tr><td>厚岸 → 中標津空港</td><td class="num">約110km</td><td class="num">2-2時間半</td><td>標茶市街。この区間は店が少ない</td></tr>
+    <tr><td>稚内空港 → 市街</td><td class="num">約12km</td><td class="num">20-30分</td><td>道の駅わっかない（授乳室）</td></tr>
+    <tr><td>稚内市街 → 宗谷岬</td><td class="num">約30km</td><td class="num">40-45分</td><td>途中に施設がほぼない</td></tr>
+    <tr><td>利尻島 一周</td><td class="num">約60km</td><td class="num">走行1時間半</td><td>各展望台</td></tr>
+  </table>
+
+  <h3>ハートランドフェリー 夏期ダイヤ</h3>
+  <table>
+    <tr><th>区間</th><th>稚内発</th><th>島発</th><th>所要</th><th>2等大人</th></tr>
+    <tr><td>稚内 ⇄ 鴛泊（利尻）</td><td class="num">07:15 / 11:15 / 16:40</td><td class="num">08:25 / 12:05 / 16:40</td><td class="num">1時間40分</td><td class="num">3,590円</td></tr>
+    <tr><td>稚内 ⇄ 香深（礼文）</td><td class="num">06:30 / 10:30 / 14:50</td><td class="num">08:55 / 14:20 / 17:10</td><td class="num">1時間55分</td><td class="num">3,950円</td></tr>
+    <tr><td>鴛泊 ⇄ 香深</td><td class="num">09:30 / 13:15</td><td class="num">10:40 / 15:30</td><td class="num">45分</td><td class="num">1,800円</td></tr>
+  </table>
+  <p class="lead">2等自由席は予約不要、乗船手続きは出港40分前が締切。車両航送は要予約で、稚内から鴛泊は車長3m未満16,540円、3mから4m未満21,650円、4mから5m未満27,400円（いずれも片道、運転者1名の2等運賃込み。同乗者は別途）。運賃表では1歳以上の未就学児は大人1名につき2名まで無料ですが、1歳未満の記載がないので稚内 0162-23-3780 に確認してください。</p>
+</section>
+
+<!-- ============ 赤ちゃんメモ ============ -->
+<section id="baby">
+  <h2><span class="num">WITH BABY</span>赤ちゃんメモ</h2>
+
+  <h3>おむつ替えと授乳ができる場所</h3>
+  <table>
+    <tr><th>場所</th><th>エリア</th><th>設備</th><th>時間</th></tr>
+    <tr><td>道の駅うとろ・シリエトク</td><td>ウトロ</td><td>授乳室、おむつ交換台、多目的トイレ</td><td class="num">9:00-17:00</td></tr>
+    <tr><td>道の駅 しゃり</td><td>斜里</td><td>おむつ交換台、多目的トイレ</td><td class="num">9:00-19:00</td></tr>
+    <tr><td>道の駅 知床・らうす</td><td>羅臼</td><td>おむつ交換台</td><td class="num">9:00-17:00</td></tr>
+    <tr><td>道の駅 おだいとう</td><td>別海（尾岱沼）</td><td>授乳室、おむつ交換台。レストラン11:00-15:30</td><td class="num">9:00-17:00</td></tr>
+    <tr><td>道の駅 厚岸グルメパーク</td><td>厚岸</td><td>おむつ交換台、多目的トイレ</td><td class="num">9:00-19:00</td></tr>
+    <tr><td>根室花まる 中標津店</td><td>中標津</td><td>子ども用イス、離乳食の温め、バリアフリートイレ</td><td class="num">11:00-21:00</td></tr>
+    <tr><td>道の駅わっかない</td><td>稚内</td><td>授乳室、おむつ交換台、キッズスペース</td><td class="num">9:00-18:00</td></tr>
+    <tr><td>稚内温泉童夢</td><td>稚内</td><td>ベビーベッド2台、おむつ交換台2台、授乳スペース</td><td class="num">10:00-22:00</td></tr>
+    <tr><td>ハートランドフェリー</td><td>船内</td><td>アマポーラ宗谷はベビールーム、他船はおむつ替え台</td><td class="num">運航中</td></tr>
+  </table>
+
+  <h3>設備がない区間</h3>
+  <ul style="font-size:14px">
+    <li>中標津空港からウトロ。標津から羅臼、知床峠までは停まる場所が減ります</li>
+    <li>厚岸から標茶を経て中標津。牧草地帯で店もトイレも極端に少ない</li>
+    <li>稚内市街から宗谷岬、宗谷丘陵。往復で2時間の間、ほぼ何もありません</li>
+  </ul>
+  <p class="lead">この3区間は車内で替える前提で、シートと替えのセットを助手席に置いておいてください。</p>
+
+  <h3>医療</h3>
+  <table>
+    <tr><th>エリア</th><th>医療機関</th><th>電話</th><th>備考</th></tr>
+    <tr><td>厚岸</td><td>町立厚岸病院（住の江1-1）</td><td class="num">0153-52-3145</td><td>小児科の午後外来は15:00-16:00。土日祝は休診</td></tr>
+    <tr><td>中標津</td><td>町立中標津病院（西10条南9-1-1）</td><td class="num">0153-72-8200</td><td>173床の地域中核病院。小児科あり</td></tr>
+    <tr><td>稚内</td><td>市立稚内病院（中央4-11-6）</td><td class="num">0162-23-2771</td><td>稚内で唯一の総合病院。救急外来も同じ番号</td></tr>
+    <tr><td>利尻・礼文</td><td>総合病院なし</td><td>-</td><td>体調に不安がある日は島行きを見送る判断を</td></tr>
+    <tr><td>全道共通</td><td>北海道小児救急電話相談</td><td class="num">#8000</td><td>毎日19:00から翌8:00。IP電話は011-232-1599</td></tr>
+  </table>
+</section>
+
+<!-- ============ 電話帳 ============ -->
+<section id="tel">
+  <h2><span class="num">CONTACTS</span>電話帳</h2>
+  <table>
+    <tr><th>相手</th><th>電話</th><th>用件</th></tr>
+    <tr><td>北こぶし知床 予約センター</td><td class="num">0152-24-3222</td><td>ベビーベッド、離乳食の温め、チェックアウト時刻</td></tr>
+    <tr><td>北こぶし知床 代表</td><td class="num">0152-24-2021</td><td>当日の連絡</td></tr>
+    <tr><td>シーサイドインあっけし</td><td class="num">0153-68-9030</td><td>和室の空き、添い寝、夕食を早めに始められるか</td></tr>
+    <tr><td>カキキンオイスターバー牡蠣場</td><td class="num">0153-52-5277</td><td>予約済み。当日の連絡先</td></tr>
+    <tr><td>厚岸漁協直売店 エーウロコ</td><td class="num">0153-52-0117</td><td>花咲蟹の在庫、閉店時刻</td></tr>
+    <tr><td>道の駅厚岸グルメパーク</td><td class="num">0153-52-4139</td><td>オイスターバール ピトレスクの席</td></tr>
+    <tr><td>根室花まる 中標津店</td><td class="num">0153-78-8708</td><td>営業日の確認。席の予約は不可</td></tr>
+    <tr><td>ハートランドフェリー 稚内</td><td class="num">0162-23-3780</td><td>1歳未満の運賃、車両航送の予約</td></tr>
+    <tr><td>ホテル雲丹御殿</td><td class="num">要確認</td><td>乳児連れの受入、夕食の時間帯</td></tr>
+    <tr><td>利尻レンタカー</td><td class="num">0163-82-2551</td><td>鴛泊フェリーターミナル前。電話予約のみ。軽24時間14,500円、48時間23,500円。チャイルドシートの料金は要確認</td></tr>
+    <tr><td>トヨタレンタカー利尻店</td><td class="num">0163-89-2300</td><td>同じくターミナル前。離島料金でSクラス24時間20,350円</td></tr>
+    <tr><td>トヨタレンタカー礼文店</td><td class="num">0163-86-1117</td><td>ベビーシートの在庫</td></tr>
+    <tr><td>トヨタレンタカー稚内店</td><td class="num">0162-22-0100</td><td>JR稚内駅から徒歩2分。8:00-19:00</td></tr>
+    <tr><td>宗谷バス</td><td class="num">0162-22-3114</td><td>空港連絡バスの時刻、アクティブバスの運行日、定期観光バスの予約</td></tr>
+    <tr><td>北都ハイヤー</td><td class="num">0162-33-2525</td><td>タクシー、観光タクシー</td></tr>
+    <tr><td>稚内日の丸交通</td><td class="num">0162-23-6434</td><td>タクシー、観光タクシー。最北端Cコース18,300円から</td></tr>
+    <tr><td>樺太食堂</td><td class="num">0162-24-3451</td><td>当日の営業。予約は不可</td></tr>
+    <tr><td>車屋・源氏</td><td class="num">0162-23-4111</td><td>個室の予約</td></tr>
+    <tr><td>北の味心 竹ちゃん</td><td class="num">0162-22-7130</td><td>小上がりの予約。日曜定休</td></tr>
+    <tr><td>甚八</td><td class="num">0162-22-3802</td><td>乳児連れで座れる席があるか。日祝定休</td></tr>
+    <tr><td>稚内市観光案内所</td><td class="num">0162-73-0014</td><td>白い道の交通規制</td></tr>
+    <tr><td>市立稚内病院</td><td class="num">0162-23-2771</td><td>急病時</td></tr>
+  </table>
+</section>
+
+<footer>
+  <div>最終更新 2026年8月11日。8/20より前の手配が完了。稚内の足の比較を「宗谷岬に行くかどうか」を先に置く形に組み直し、論点を依存関係の順に並べ替えました。</div>
+</footer>
+
+</div>
+</body>
+</html>
