@@ -78,6 +78,11 @@
   .packlist ul{margin:0; padding-left:20px; font-size:13.5px}
   .packlist li{margin:3px 0}
   .packlist li.hi{color:var(--todo); font-weight:600}
+  .packlist label{display:flex; gap:9px; align-items:flex-start; margin:7px 0; font-size:13.5px; cursor:pointer; line-height:1.6}
+  .packlist input[type="checkbox"]{margin-top:4px; accent-color:var(--sea); width:16px; height:16px; flex:none}
+  .packlist label:has(input:checked) span{color:var(--muted); text-decoration:line-through}
+  .packlist label.hi span{color:var(--todo); font-weight:600}
+  .packlist label.hi:has(input:checked) span{color:var(--muted)}
 
   .ronten{background:#fff; border:1px solid var(--line); border-radius:10px; padding:4px 20px 14px; margin:14px 0}
   .ronten h4{font-size:15px; margin:18px 0 4px; color:var(--sea-d)}
@@ -150,42 +155,47 @@
 
 <!-- ============ 持ち物 ============ -->
 <section id="pack">
-  <h2><span class="num">PACKING</span>持ち物</h2>
+  <h2><span class="num">PACKING</span>持ち物チェックリスト</h2>
+  <p class="lead">おむつもミルクも現地調達はせず、全部東京から持っていきます。チェックはこの端末のブラウザに保存されるので、荷造りしながらスマホで潰していけます。</p>
   <div class="grid2">
     <div class="packlist">
-      <h4>これを忘れると困る</h4>
-      <ul>
-        <li class="hi">北こぶし知床の宿泊優待券 5万円分（現物。手荷物に）</li>
-        <li class="hi">母子手帳と保険証、乳幼児医療費受給者証</li>
-        <li class="hi">レンタカーの予約控え（ベビーシートの記載を確認）</li>
-        <li>運転免許証（2人分）、ANAの予約番号、Amexゴールドプリファード（羽田のラウンジ用）</li>
-      </ul>
-      <h4>赤ちゃんまわり</h4>
-      <ul>
-        <li>おむつ（1日8枚 × 7日 + 予備）、おしりふき、消臭袋</li>
-        <li>ミルク、哺乳瓶2本、洗浄グッズ、液体ミルクと使い捨て乳首</li>
-        <li>抱っこ紐、軽いバギー</li>
-        <li>着替え多め、スタイ、薄手のアウター</li>
-        <li>日よけ、虫よけ、体温計、常備薬、保湿剤</li>
-      </ul>
+      <h4>貴重品・書類（忘れると詰む）</h4>
+      <label class="hi"><input type="checkbox" id="pk-yutai"><span>北こぶし知床の宿泊優待券 5万円分（現物。手荷物に）</span></label>
+      <label class="hi"><input type="checkbox" id="pk-boshi"><span>母子手帳、保険証、乳幼児医療費受給者証</span></label>
+      <label><input type="checkbox" id="pk-menkyo"><span>運転免許証（2人分）</span></label>
+      <label><input type="checkbox" id="pk-amex"><span>Amexゴールドプリファード（羽田のラウンジ用）</span></label>
+      <label><input type="checkbox" id="pk-genkin"><span>現金多め（ひいらぎ軒などの個人店用）</span></label>
+      <label><input type="checkbox" id="pk-yoyaku"><span>予約控え（ANA、レンタカーのベビーシート記載、タクシーの予約番号）</span></label>
+      <h4>ミルク（配分は下のメモ参照）</h4>
+      <label><input type="checkbox" id="pk-ekitai"><span>液体ミルク（調製済みの缶かパック）14本 = 移動・外食用12本 + 予備2本</span></label>
+      <label><input type="checkbox" id="pk-nipple"><span>使い捨て乳首（液体ミルクの本数ぶん）</span></label>
+      <label><input type="checkbox" id="pk-stick"><span>粉ミルクのスティック 20本前後（宿での調乳用）</span></label>
+      <label><input type="checkbox" id="pk-honyubin"><span>哺乳瓶 2本</span></label>
+      <label><input type="checkbox" id="pk-senzaibin"><span>哺乳瓶用の洗剤とスポンジ（小分け）</span></label>
+      <label><input type="checkbox" id="pk-shodoku"><span>消毒グッズ（電子レンジ消毒バッグか錠剤）</span></label>
     </div>
     <div class="packlist">
-      <h4>北海道の8月ならでは</h4>
-      <ul>
-        <li>宗谷岬と宗谷丘陵は風が強く8月でも寒い。ブランケットを1枚多く</li>
-        <li>フェリーの船内は冷える。羽織るもの</li>
-        <li>ひいらぎ軒などの個人店に備えて現金を多めに</li>
-        <li>牡蠣と花咲蟹を持ち帰るなら保冷バッグ。空港からの宅配も検討</li>
-      </ul>
-      <h4>車に積んでおくもの</h4>
-      <ul>
-        <li>おむつ替えシート（道の駅の間隔が空く区間があるので車内で替える前提）</li>
-        <li>飲み物と軽食</li>
-        <li>ゴミ袋、タオル、日よけシェード</li>
-        <li>モバイルバッテリーと車載充電器</li>
-      </ul>
+      <h4>おむつ・ケア</h4>
+      <label><input type="checkbox" id="pk-omutsu"><span>おむつ 60枚ほど（1日8枚 × 7日 + 予備）</span></label>
+      <label><input type="checkbox" id="pk-oshiri"><span>おしりふき、消臭袋</span></label>
+      <label><input type="checkbox" id="pk-sheet"><span>おむつ替えシート（車内で替える区間があります）</span></label>
+      <label><input type="checkbox" id="pk-taion"><span>体温計、常備薬、保湿剤</span></label>
+      <label><input type="checkbox" id="pk-hiyoke"><span>日よけ、虫よけ</span></label>
+      <h4>衣類</h4>
+      <label><input type="checkbox" id="pk-kigae"><span>ハピゾノの着替え多め、スタイ</span></label>
+      <label><input type="checkbox" id="pk-outer"><span>薄手のアウターとブランケット（宗谷岬とフェリーは8月でも寒い）</span></label>
+      <label><input type="checkbox" id="pk-senzaifuku"><span>衣服用の洗剤（小分け。ドーミーインのランドリーで洗う用）</span></label>
+      <label><input type="checkbox" id="pk-haori"><span>おとなの羽織るもの</span></label>
+      <h4>移動まわり</h4>
+      <label><input type="checkbox" id="pk-dakko"><span>抱っこ紐、軽いバギー</span></label>
+      <label><input type="checkbox" id="pk-battery"><span>モバイルバッテリー、充電器、車載充電器</span></label>
+      <label><input type="checkbox" id="pk-reibag"><span>保冷バッグ（厚岸の牡蠣や花咲蟹の持ち帰り用）</span></label>
+      <label><input type="checkbox" id="pk-kuruma"><span>飲み物と軽食、ゴミ袋、タオル、日よけシェード（前半のレンタカーに積む）</span></label>
     </div>
   </div>
+  <div class="note">
+    <span class="lbl">ミルクの配分の考え方（提案）</span>
+    1回200ml・1日5回で置いて、そのうち移動・外食中が2回、宿で3回という配分です。7日間で外が約14回、宿が約21回になるので、外のぶんを液体ミルク14本（12本＋予備2本）、宿のぶんをスティック20本前後で賄います。宿は4軒とも部屋か貸出で湯沸かしがあり、北こぶしは調乳ポットも借りられるので、宿はスティックで足ります。粉ミルクの缶は重いうえ開封後の持ち運びに気を使うので、今回は置いていく提案です。実際の授乳リズム（母乳との混合の比率）に合わせて、この本数から増減してください。液体ミルクは重いので、前半で使うぶんはキャリーケース、当日使うぶんだけ手荷物に。</div>
 </section>
 
 <!-- ============ 前半 ============ -->
@@ -199,12 +209,11 @@
       <ul class="tl">
         <li><div class="t">11:00</div><div class="b"><div class="ttl">羽田T2、保安検査後にカードラウンジで一息</div><div class="dsc">Amexゴールドプリファード＋当日の搭乗券で本人と同伴者1名が無料。POWER LOUNGE CENTRAL / NORTH（3階）かエアポートラウンジ南（2階）。上位のPOWER LOUNGE PREMIUMは対象外なので並ばないこと</div></div></li>
         <li><div class="t">14:10</div><div class="b"><div class="ttl">根室中標津空港 到着</div></div></li>
-        <li><div class="t">14:35</div><div class="b"><div class="ttl">レンタカー受取 <span class="tag ok">予約済</span></div><div class="dsc">ベビーシートの取り付けをここで。空港には6社が入っていて、いずれも送迎あり</div></div></li>
-        <li><div class="t">14:55</div><div class="b"><div class="ttl">中標津市街でおむつとミルクの買い出し、15:30ごろ出発</div><div class="dsc">空港から市街へ約10分。東武サウスヒルズやドラッグストアがまとまっています。ここを逃すとウトロまで大型店はないので、旅の分はここで調達。持参は道中ぶんと予備だけでOK</div></div></li>
-        <li><div class="t">16:20</div><div class="b"><div class="ttl">標津あたりで1回だけ休憩</div><div class="dsc">羅臼までの中間。ここを逃すと知床峠まで停まる場所が減ります</div></div></li>
-        <li><div class="t">17:15</div><div class="b"><div class="ttl">北こぶし知床 チェックイン <span class="tag ok">予約済</span></div><div class="dsc">市街から115km、約2時間。買い出しを済ませてもこの時刻に着けます</div></div></li>
-        <li><div class="t">17:30</div><div class="b"><div class="ttl">大浴場、ラウンジ</div><div class="dsc">ラウンジのアルコールは15:00から23:00。夕食前に1杯やる時間はあります</div></div></li>
-        <li><div class="t">18:30</div><div class="b"><div class="ttl">夕食</div><div class="dsc">18:00オープン、20:00最終入場、21:00クローズ</div></div></li>
+        <li><div class="t">14:35</div><div class="b"><div class="ttl">レンタカー受取、そのまま出発 <span class="tag ok">予約済</span></div><div class="dsc">ベビーシートの取り付けをここで。空港には6社が入っていて、いずれも送迎あり。おむつやミルクは東京から持参するので、買い出しには寄りません</div></div></li>
+        <li><div class="t">15:40</div><div class="b"><div class="ttl">標津あたりで1回だけ休憩</div><div class="dsc">羅臼までの中間。ここを逃すと知床峠まで停まる場所が減ります</div></div></li>
+        <li><div class="t">16:45</div><div class="b"><div class="ttl">北こぶし知床 チェックイン <span class="tag ok">予約済</span></div><div class="dsc">115km、約2時間。チェックインは15:00からですが、飛行機の到着が14:10なので物理的にはこれが最速です</div></div></li>
+        <li><div class="t">17:00</div><div class="b"><div class="ttl">大浴場、ラウンジ</div><div class="dsc">ラウンジのアルコールは15:00から23:00。到着後すぐに1杯やる時間はあります</div></div></li>
+        <li><div class="t">18:00</div><div class="b"><div class="ttl">夕食</div><div class="dsc">18:00オープン、20:00最終入場、21:00クローズ</div></div></li>
       </ul>
       <div class="note">
         <span class="lbl">寄り道はしない前提にしました</span>
@@ -564,9 +573,16 @@
 </section>
 
 <footer>
-  <div>最終更新 2026年8月14日。8/20の夕食（ら・せーぬ→竹ちゃん）を予約済みに。8/17に中標津での買い出し、8/21の昼に樺太記念館を組み込み、樺太食堂とノシャップは見送りに。8/22夕食の第一候補は車屋・源氏の個室です。</div>
+  <div>最終更新 2026年8月14日。持ち物をチェックボックス付きのリストに作り替えました（チェックは端末に保存されます）。おむつとミルクは東京から全量持参の方針にし、中標津の買い出しは行程から外しました。ミルクの配分提案（液体14本＋スティック20本、缶は置いていく）付き。</div>
 </footer>
 
 </div>
+<script>
+document.querySelectorAll('#pack input[type="checkbox"]').forEach(function(cb){
+  var key = 'pack2026-' + cb.id;
+  if (localStorage.getItem(key) === '1') { cb.checked = true; }
+  cb.addEventListener('change', function(){ localStorage.setItem(key, cb.checked ? '1' : '0'); });
+});
+</script>
 </body>
 </html>
